@@ -173,7 +173,6 @@ body {
 .food-column {
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
 /* Responsive Design */
