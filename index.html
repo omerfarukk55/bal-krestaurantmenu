@@ -6,322 +6,474 @@
     <title>Han-Sar Balık Evi - Fiyat Listesi</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&family=Bigelow+Rules&family=Fira+Sans+Condensed:wght@300&family=Great+Vibes&family=Lobster&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200&family=Oleo+Script:wght@400;700&family=Open+Sans:wght@300&family=Pacifico&family=Playball&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arapey:ital@0;1&family=Bigelow+Rules&family=Fira+Sans+Condensed:wght@300&family=Great+Vibes&family=Lobster&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200&family=Oleo+Script:wght@400;700&family=Open+Sans:wght@300&family=Pacifico&family=Playball&display=swap" rel="stylesheet">
 </head>
+
 <body>
+    <!-- Admin Paneli için Modal -->
+    <div id="adminModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center;">
+        <div style="background:white; padding:30px; border-radius:10px; min-width:400px; max-width:90vw; max-height:80vh; overflow-y:auto;">
+            <!-- Giriş Ekranı -->
+            <div id="adminLogin">
+                <h2>Admin Girişi</h2>
+                <input type="password" id="adminPass" placeholder="Şifre giriniz" style="padding:10px; width:100%; margin-bottom:15px; border:1px solid #ccc; border-radius:5px;">
+                <button onclick="checkAdmin()" style="padding:10px 20px; background:#007cba; color:white; border:none; border-radius:5px; cursor:pointer; width:100%;">Giriş Yap</button>
+                <div id="loginError" style="color:red; margin-top:10px; text-align:center;"></div>
+            </div>
+            
+            <!-- Admin Panel -->
+            <div id="adminPanel" style="display:none;">
+                <h2>Fiyat Güncelleme Paneli</h2>
+                <div id="priceForm" style="max-height:400px; overflow-y:auto;"></div>
+                <div style="margin-top:20px; text-align:center;">
+                    <button onclick="savePrices()" style="padding:10px 20px; background:#28a745; color:white; border:none; border-radius:5px; cursor:pointer; margin-right:10px;">Kaydet</button>
+                    <button onclick="closeAdmin()" style="padding:10px 20px; background:#dc3545; color:white; border:none; border-radius:5px; cursor:pointer;">Kapat</button>
+                </div>
+                <div id="saveMsg" style="color:green; margin-top:10px; text-align:center;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Butonu (sağ alt köşe) -->
+    <button onclick="openAdmin()" style="position:fixed; bottom:20px; right:20px; padding:10px; background:#007cba; color:white; border:none; border-radius:50%; cursor:pointer; width:60px; height:60px; font-size:20px; z-index:1000;">⚙️</button>
+
     <div class="container">
         <!-- Header -->
         <div class="header">
             <div class="kalıp">
-                <img class="logo" src="./img/logo.png" alt="" style="position: relative;">
-                <img class="baslık" src="./img/fiyat.png" alt="" style="position: relative;">
+                <img class="logo" src="./img/logo.png" alt="">
+                <img class="baslık" src="./img/fiyat.png" alt="">
             </div>
         </div>
 
-        <!-- İçecekler Sayfası -->
+        <!-- Ana Sayfa -->
         <div class="page page-1">
             <div class="menu-grid">
-                 <!-- Balık Çeşitleri -->
-            <div class="section-header">
-                <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Balık Çeşitleri</div></div>
-            </div>
-            <div class="food-grid">
-                <div class="food-column">
-                    <div class="menu-item">
-                        <span>Levrek</span>
-                        <span class="price-box">500</span>
+                <!-- Balık Çeşitleri -->
+                <div class="section-header">
+                    <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Balık Çeşitleri</div></div>
+                </div>
+                <div class="food-grid">
+                    <div class="food-column">
+                        <div class="menu-item">
+                            <span>Levrek</span>
+                            <span class="price-box">500</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Çupra</span>
+                            <span class="price-box">500</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Somon</span>
+                            <span class="price-box">450</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Kötek</span>
+                            <span class="price-box">500</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Barbun</span>
+                            <span class="price-box">500</span>
+                        </div>
                     </div>
-                    <div class="menu-item">
-                        <span>Çupra</span>
-                        <span class="price-box">500</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Somon</span>
-                        <span class="price-box">450</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Kötek</span>
-                        <span class="price-box">500</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Barbun</span>
-                        <span class="price-box">500</span>
+                    <div class="food-column">
+                        <div class="menu-item">
+                            <span>Mezgit</span>
+                            <span class="price-box">500</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>İskorpit(Çarpan)</span>
+                            <span class="price-box">600</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Kalkan (kg.)</span>
+                            <span class="price-box">1500</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Palamut</span>
+                            <span class="price-box">400</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Hamsi</span>
+                            <span class="price-box">400</span>
+                        </div>
                     </div>
                 </div>
-                <div class="food-column">
-                    <div class="menu-item">
-                        <span>Mezgit</span>
-                        <span class="price-box">500</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>İskorpit(Çarpan)</span>
-                        <span class="price-box">600</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Kalkan (kg.)</span>
-                        <span class="price-box">1500</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Palamut</span>
-                        <span class="price-box">400</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Hamsi</span>
-                        <span class="price-box">400</span>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Meze Çeşitleri -->
-            <div class="section-header">
-                <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Meze Çeşitleri</div></div>
-            </div>
-            <div class="food-grid">
-                <div class="food-column">
-                    <div class="menu-item">
-                        <span>Turşu Kavurma</span>
-                        <span class="price-box">75</span>
+                <!-- Meze Çeşitleri -->
+                <div class="section-header">
+                    <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Meze Çeşitleri</div></div>
+                </div>
+                <div class="food-grid">
+                    <div class="food-column">
+                        <div class="menu-item">
+                            <span>Turşu Kavurma</span>
+                            <span class="price-box">75</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Pilaki</span>
+                            <span class="price-box">75</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Caciki</span>
+                            <span class="price-box">75</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Semiz Otu</span>
+                            <span class="price-box">75</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Patlıcan/Biber Kız.</span>
+                            <span class="price-box">75</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Peynir Dilim</span>
+                            <span class="price-box">50</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Havuç Tarator</span>
+                            <span class="price-box">75</span>
+                        </div>
                     </div>
-                    <div class="menu-item">
-                        <span>Pilaki</span>
-                        <span class="price-box">75</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Caciki</span>
-                        <span class="price-box">75</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Semiz Otu</span>
-                        <span class="price-box">75</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Patlıcan/Biber Kız.</span>
-                        <span class="price-box">75</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Peynir Dilim</span>
-                        <span class="price-box">50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Havuç Tarator</span>
-                        <span class="price-box">75</span>
+                    <div class="food-column">
+                        <div class="menu-item">
+                            <span>Kavun</span>
+                            <span class="price-box">100</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Karpuz</span>
+                            <span class="price-box">100</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Kiraz</span>
+                            <span class="price-box">100</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Karışık Meyve</span>
+                            <span class="price-box">200</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Ballı Süzme</span>
+                            <span class="price-box">200</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Rus Salatası</span>
+                            <span class="price-box">75</span>
+                        </div>
                     </div>
                 </div>
-                <div class="food-column">
-                    <div class="menu-item">
-                        <span>Kavun</span>
-                        <span class="price-box">100</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Karpuz</span>
-                        <span class="price-box">100</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Kiraz</span>
-                        <span class="price-box">100</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Karışık Meyve</span>
-                        <span class="price-box">200</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Ballı Süzme</span>
-                        <span class="price-box">200</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Rus Salatası</span>
-                        <span class="price-box">75</span>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Meşrubat Çeşitleri -->
-            <div class="section-header">
-                <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Meşrubat Çeşitleri</div></div>
-            </div>
-            <div class="food-grid">
-                <div class="food-column">
-                    <div class="menu-item">
-                        <span>Kutu İçecek</span>
-                        <span class="price-box">70</span>
+                <!-- Meşrubat Çeşitleri -->
+                <div class="section-header">
+                    <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Meşrubat Çeşitleri</div></div>
+                </div>
+                <div class="food-grid">
+                    <div class="food-column">
+                        <div class="menu-item">
+                            <span>Kutu İçecek</span>
+                            <span class="price-box">70</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Şişe İçecek</span>
+                            <span class="price-box">50</span>
+                        </div>
                     </div>
-                    <div class="menu-item">
-                        <span>Şişe İçecek</span>
-                        <span class="price-box">50</span>
+                    <div class="food-column">
+                        <div class="menu-item">
+                            <span>Litrelik İçecek</span>
+                            <span class="price-box">100</span>
+                        </div>
+                        <div class="menu-item">
+                            <span>Şalgam</span>
+                            <span class="price-box">50</span>
+                        </div>
                     </div>
                 </div>
-                <div class="food-column">
-                    <div class="menu-item">
-                        <span>Litrelik İçecek</span>
-                        <span class="price-box">100</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Şalgam</span>
-                        <span class="price-box">50</span>
-                    </div>
-                </div>
-            </div> 
             </div>
         </div>
-                <!-- Yeni Rakı -->
-            <div class="page page-2">
-                <div class="menu-section">
-                    <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Yeni Rakı</div></div>
-                    <div class="menu-item">
-                        <span>100 Yeni Rakı</span>
-                        <span class="price-box">2700</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>70 Yeni Rakı</span>
-                        <span class="price-box">2200</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>50 Yeni Rakı</span>
-                        <span class="price-box">1700</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>35 Yeni Rakı</span>
-                        <span class="price-box">1200</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>20 Yeni Rakı</span>
-                        <span class="price-box">800</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>D. Yeni Rakı</span>
-                        <span class="price-box">400</span>
-                    </div>
-                </div>
 
-                <!-- Altın Seri -->
-                <div class="menu-section">
-                    <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Altın Seri</div></div>
-                    <div class="menu-item">
-                        <span>100 Altın Seri</span>
-                        <span class="price-box">2800</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>70 Altın Seri</span>
-                        <span class="price-box">2300</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>50 Altın Seri</span>
-                        <span class="price-box">1800</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>35 Altın Seri</span>
-                        <span class="price-box">1300</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>20 Altın Seri</span>
-                        <span class="price-box">900</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>D. Altın Seri</span>
-                        <span class="price-box">450</span>
-                    </div>
+        <!-- İkinci Sayfa - İçkiler -->
+        <div class="page page-2">
+            <div class="menu-section">
+                <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Yeni Rakı</div></div>
+                <div class="menu-item">
+                    <span>100 Yeni Rakı</span>
+                    <span class="price-box">2700</span>
                 </div>
+                <div class="menu-item">
+                    <span>70 Yeni Rakı</span>
+                    <span class="price-box">2200</span>
+                </div>
+                <div class="menu-item">
+                    <span>50 Yeni Rakı</span>
+                    <span class="price-box">1700</span>
+                </div>
+                <div class="menu-item">
+                    <span>35 Yeni Rakı</span>
+                    <span class="price-box">1200</span>
+                </div>
+                <div class="menu-item">
+                    <span>20 Yeni Rakı</span>
+                    <span class="price-box">800</span>
+                </div>
+                <div class="menu-item">
+                    <span>D. Yeni Rakı</span>
+                    <span class="price-box">400</span>
+                </div>
+            </div>
 
-                <!-- Beylerbeyi -->
-                <div class="menu-section">
-                    <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Beylerbeyi</div></div>
-                    <div class="menu-item">
-                        <span>100 Beylerbeyi</span>
-                        <span class="price-box">2900</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>70 Beylerbeyi</span>
-                        <span class="price-box">2400</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>50 Beylerbeyi</span>
-                        <span class="price-box">1900</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>35 Beylerbeyi</span>
-                        <span class="price-box">1300</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>20 Beylerbeyi</span>
-                        <span class="price-box">900</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>D. Beylerbeyi</span>
-                        <span class="price-box">500</span>
-                    </div>
+            <!-- Altın Seri -->
+            <div class="menu-section">
+                <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Altın Seri</div></div>
+                <div class="menu-item">
+                    <span>100 Altın Seri</span>
+                    <span class="price-box">2800</span>
                 </div>
+                <div class="menu-item">
+                    <span>70 Altın Seri</span>
+                    <span class="price-box">2300</span>
+                </div>
+                <div class="menu-item">
+                    <span>50 Altın Seri</span>
+                    <span class="price-box">1800</span>
+                </div>
+                <div class="menu-item">
+                    <span>35 Altın Seri</span>
+                    <span class="price-box">1300</span>
+                </div>
+                <div class="menu-item">
+                    <span>20 Altın Seri</span>
+                    <span class="price-box">900</span>
+                </div>
+                <div class="menu-item">
+                    <span>D. Altın Seri</span>
+                    <span class="price-box">450</span>
+                </div>
+            </div>
 
-                <!-- Vodka -->
-                <div class="menu-section">
-                    <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Vodka</div></div>
-                    <div class="menu-item">
-                        <span>100 Vodka</span>
-                        <span class="price-box">2700</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>70 Vodka</span>
-                        <span class="price-box">2200</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>50 Vodka</span>
-                        <span class="price-box">1700</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>35 Vodka</span>
-                        <span class="price-box">1200</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>20 Vodka</span>
-                        <span class="price-box">800</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>D. Vodka</span>
-                        <span class="price-box">400</span>
-                    </div>
+            <!-- Beylerbeyi -->
+            <div class="menu-section">
+                <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Beylerbeyi</div></div>
+                <div class="menu-item">
+                    <span>100 Beylerbeyi</span>
+                    <span class="price-box">2900</span>
                 </div>
+                <div class="menu-item">
+                    <span>70 Beylerbeyi</span>
+                    <span class="price-box">2400</span>
+                </div>
+                <div class="menu-item">
+                    <span>50 Beylerbeyi</span>
+                    <span class="price-box">1900</span>
+                </div>
+                <div class="menu-item">
+                    <span>35 Beylerbeyi</span>
+                    <span class="price-box">1300</span>
+                </div>
+                <div class="menu-item">
+                    <span>20 Beylerbeyi</span>
+                    <span class="price-box">900</span>
+                </div>
+                <div class="menu-item">
+                    <span>D. Beylerbeyi</span>
+                    <span class="price-box">500</span>
+                </div>
+            </div>
 
-                <!-- Viski -->
-                <div class="menu-section">
-                    <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Viski</div></div>
-                    <div class="menu-item">
-                        <span>100 Viski</span>
-                        <span class="price-box">4000</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>70 Viski</span>
-                        <span class="price-box">3000</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>50 Viski</span>
-                        <span class="price-box">2200</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>35 Viski</span>
-                        <span class="price-box">1700</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>20 Viski</span>
-                        <span class="price-box">1000</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>D. Viski</span>
-                        <span class="price-box">500</span>
-                    </div>
+            <!-- Vodka -->
+            <div class="menu-section">
+                <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Vodka</div></div>
+                <div class="menu-item">
+                    <span>100 Vodka</span>
+                    <span class="price-box">2700</span>
                 </div>
+                <div class="menu-item">
+                    <span>70 Vodka</span>
+                    <span class="price-box">2200</span>
+                </div>
+                <div class="menu-item">
+                    <span>50 Vodka</span>
+                    <span class="price-box">1700</span>
+                </div>
+                <div class="menu-item">
+                    <span>35 Vodka</span>
+                    <span class="price-box">1200</span>
+                </div>
+                <div class="menu-item">
+                    <span>20 Vodka</span>
+                    <span class="price-box">800</span>
+                </div>
+                <div class="menu-item">
+                    <span>D. Vodka</span>
+                    <span class="price-box">400</span>
+                </div>
+            </div>
 
-                <!-- Bira -->
-                <div class="menu-section">
-                    <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Bira</div></div>
-                    <div class="menu-item">
-                        <span>Tuborg Gold</span>
-                        <span class="price-box">200</span>
-                    </div>
+            <!-- Viski -->
+            <div class="menu-section">
+                <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Viski</div></div>
+                <div class="menu-item">
+                    <span>100 Viski</span>
+                    <span class="price-box">4000</span>
                 </div>
+                <div class="menu-item">
+                    <span>70 Viski</span>
+                    <span class="price-box">3000</span>
+                </div>
+                <div class="menu-item">
+                    <span>50 Viski</span>
+                    <span class="price-box">2200</span>
+                </div>
+                <div class="menu-item">
+                    <span>35 Viski</span>
+                    <span class="price-box">1700</span>
+                </div>
+                <div class="menu-item">
+                    <span>20 Viski</span>
+                    <span class="price-box">1000</span>
+                </div>
+                <div class="menu-item">
+                    <span>D. Viski</span>
+                    <span class="price-box">500</span>
+                </div>
+            </div>
+
+            <!-- Bira -->
+            <div class="menu-section">
+                <div class="ribbon"><img class="baslikimage" src="./img/image.png"><div class="basligi">Bira</div></div>
+                <div class="menu-item">
+                    <span>Tuborg Gold</span>
+                    <span class="price-box">200</span>
+                </div>
+            </div>
         </div>
+
         <div class="footer">
             <p>&copy; 2025 Han-Sar Balık Evi. Tüm hakları saklıdır.</p>
         </div>
     </div>
+
+<script>
+// Sayfa yüklendiğinde fiyatları localStorage'dan yükle
+window.addEventListener('DOMContentLoaded', function() {
+    loadPrices();
+});
+
+// Fiyatları localStorage'dan yükle
+function loadPrices() {
+    const savedPrices = JSON.parse(localStorage.getItem('menuPrices') || '{}');
+    document.querySelectorAll('.menu-item').forEach(function(item) {
+        const productName = item.querySelector('span').textContent.trim();
+        const priceBox = item.querySelector('.price-box');
+        if (savedPrices[productName]) {
+            priceBox.textContent = savedPrices[productName];
+        }
+    });
+}
+
+// Admin panelini aç
+function openAdmin() {
+    document.getElementById('adminModal').style.display = 'flex';
+    document.getElementById('adminLogin').style.display = 'block';
+    document.getElementById('adminPanel').style.display = 'none';
+    document.getElementById('adminPass').value = '';
+    document.getElementById('loginError').textContent = '';
+    document.getElementById('saveMsg').textContent = '';
+}
+
+// Admin panelini kapat
+function closeAdmin() {
+    document.getElementById('adminModal').style.display = 'none';
+}
+
+// Şifre kontrolü
+function checkAdmin() {
+    const password = document.getElementById('adminPass').value;
+    if (password === 'admin123') { // Şifreyi buradan değiştirebilirsiniz
+        document.getElementById('adminLogin').style.display = 'none';
+        document.getElementById('adminPanel').style.display = 'block';
+        createPriceForm();
+    } else {
+        document.getElementById('loginError').textContent = 'Hatalı şifre! Tekrar deneyin.';
+        document.getElementById('adminPass').value = '';
+    }
+}
+
+// Fiyat güncelleme formunu oluştur
+function createPriceForm() {
+    const savedPrices = JSON.parse(localStorage.getItem('menuPrices') || '{}');
+    let formHTML = '';
+    
+    document.querySelectorAll('.menu-item').forEach(function(item, index) {
+        const productName = item.querySelector('span').textContent.trim();
+        const currentPrice = item.querySelector('.price-box').textContent.trim();
+        const savedPrice = savedPrices[productName] || currentPrice;
+        
+        formHTML += `
+            <div style="margin-bottom: 10px; padding: 8px; border-bottom: 1px solid #eee;">
+                <label style="display: inline-block; width: 200px; font-weight: bold;">${productName}:</label>
+                <input type="number" 
+                       id="price_${index}" 
+                       value="${savedPrice}" 
+                       min="0" 
+                       step="1"
+                       style="width: 80px; padding: 5px; border: 1px solid #ccc; border-radius: 3px;"
+                       data-product="${productName}">
+                <span style="margin-left: 5px;">TL</span>
+            </div>
+        `;
+    });
+    
+    document.getElementById('priceForm').innerHTML = formHTML;
+}
+
+// Fiyatları kaydet
+function savePrices() {
+    const prices = {};
+    const inputs = document.querySelectorAll('#priceForm input[type="number"]');
+    
+    inputs.forEach(function(input) {
+        const productName = input.getAttribute('data-product');
+        const newPrice = input.value;
+        prices[productName] = newPrice;
+    });
+    
+    // LocalStorage'a kaydet
+    localStorage.setItem('menuPrices', JSON.stringify(prices));
+    
+    // Sayfadaki fiyatları güncelle
+    document.querySelectorAll('.menu-item').forEach(function(item) {
+        const productName = item.querySelector('span').textContent.trim();
+        const priceBox = item.querySelector('.price-box');
+        if (prices[productName]) {
+            priceBox.textContent = prices[productName];
+        }
+    });
+    
+    // Başarı mesajı göster
+    document.getElementById('saveMsg').textContent = 'Fiyatlar başarıyla güncellendi!';
+    
+    // 2 saniye sonra mesajı temizle
+    setTimeout(function() {
+        document.getElementById('saveMsg').textContent = '';
+    }, 2000);
+}
+
+// Enter tuşu ile giriş yapabilmek için
+document.getElementById('adminPass').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        checkAdmin();
+    }
+});
+
+// Modal dışına tıklayınca kapatmak için
+document.getElementById('adminModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeAdmin();
+    }
+});
+</script>
+
 </body>
 </html>

@@ -172,6 +172,7 @@ body {
 
 .food-column {
     display: flex;
+    
     flex-direction: column;
 }
 
